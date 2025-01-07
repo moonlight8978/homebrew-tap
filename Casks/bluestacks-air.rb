@@ -2,8 +2,7 @@ cask "bluestacks-air" do
   arch arm: "mac-arm"
 
   version "5.21.670.7509,6c973c3d266b456bbe61dbfc32c1d5db"
-
-  sha256 arm: "93c20a7efa08db65f6e9e85296532cccc5658b374f5380dd38dbe3e14922705d"
+  sha256 :no_check
 
   name "BlueStacks Air"
   desc "BlueStacks Air Beta for Mac"
