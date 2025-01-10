@@ -23,10 +23,9 @@ jobs:
         run: brew tap moonlight8978/tap
 
       - name: Configure github-actions-bot user
-        working-directory: /opt/homebrew/Library/Taps/moonlight8978/homebrew-tap
-        run: |
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions-bot"
+        uses: moonlight8978/actions/git-config-actions-bot@latest
+        with:
+          working-directory: /opt/homebrew/Library/Taps/moonlight8978/homebrew-tap
 
       - name: Install tools
         run: |
