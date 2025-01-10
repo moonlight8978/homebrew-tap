@@ -4,9 +4,9 @@ cask "bluestacks-air" do
   version "5.21.670.7509,6c973c3d266b456bbe61dbfc32c1d5db"
   sha256 :no_check
 
+  url "https://ak-build.bluestacks.com/public/app-player/mac/nxt_mac2/#{version.csv.first}/#{version.csv.second}/BlueStacks_#{version.csv.first}.dmg"
   name "BlueStacks Air"
   desc "BlueStacks Air Beta for Mac"
-  url "https://ak-build.bluestacks.com/public/app-player/mac/nxt_mac2/#{version.csv.first}/#{version.csv.second}/BlueStacks_#{version.csv.first}.dmg"
   homepage "https://www.bluestacks.com/mac"
 
   # https://github.com/Homebrew/homebrew-cask/blob/71e08ccebc2e39e65e69d462d1a36073a1afc708/Casks/b/bluestacks.rb#L10
@@ -26,8 +26,8 @@ cask "bluestacks-air" do
   app "BlueStacks.app"
 
   zap trash: [
+    "~/Library/HTTPStorages/com.now.gg.BlueStacks",
     "~/Library/Preferences/com.now.gg.BlueStacks.plist",
     "~/Library/Saved Application State/com.now.gg.BlueStacks.savedState",
-    "~/Library/HTTPStorages/com.now.gg.BlueStacks",
   ]
 end
