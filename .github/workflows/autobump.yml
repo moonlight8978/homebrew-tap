@@ -1,0 +1,52 @@
+name: Autobump dependencies
+
+on: 
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  autobump:
+    runs-on: macos-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+
+      - name: Set up Homebrew
+        shell: bash
+        run: |
+          sudo bash -c $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+
+      - name: Tap
+        run: brew tap moonlight8978/tap
+
+      - name: Configure github-actions-bot user
+        working-directory: /opt/homebrew/Library/Taps/moonlight8978/homebrew-tap
+        run: |
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions-bot"
+
+      - name: Install tools
+        run: |
+          which jq
+
+      - name: Bump casks
+        shell: bash
+        run: |
+          while IFS= read -r formulae; do
+            brew livecheck $formulae --json | jq -r '.[].version.latest' > "$formulae.txt"
+            version=$(cat "$formulae.txt")
+            brew bump-cask-pr $formulae --write-only --version $version --no-fork --no-audit --no-style
+          done < .github/autobump.txt
+
+      - name: Commit changes
+        working-directory: /opt/homebrew/Library/Taps/moonlight8978/homebrew-tap
+        shell: bash
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          git commit -am "chore: bump casks" && git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
