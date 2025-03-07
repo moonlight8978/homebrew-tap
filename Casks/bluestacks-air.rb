@@ -25,6 +25,10 @@ cask "bluestacks-air" do
 
   pkg "BlueStacksInstaller_#{version.csv.first}.pkg"
 
+  uninstall launchctl: [
+    "com.now.gg.BlueStacks.cleanup",
+  ]
+
   zap trash: [
     "~/Library/HTTPStorages/com.now.gg.BlueStacks",
     "~/Library/Preferences/com.now.gg.BlueStacks.plist",
