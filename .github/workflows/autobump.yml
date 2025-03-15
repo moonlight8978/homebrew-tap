@@ -36,18 +36,18 @@ jobs:
         shell: bash
         run: |
           while IFS= read -r formulae; do
-            brew livecheck $formulae --json | jq -r '.[].version.latest' > "$formulae.txt"
+            brew livecheck $formulae --json --autobump | jq -r '.[].version.latest' > "$formulae.txt"
             version=$(cat "$formulae.txt")
             echo "Bumping formulae=$formulae version=$version"
             brew bump-cask-pr $formulae --write-only --version $version --no-fork --no-audit --no-style
           done < .github/autobump.txt
 
-      # - name: Commit changes
-      #   working-directory: /opt/homebrew/Library/Taps/moonlight8978/homebrew-tap
-      #   shell: bash
-      #   run: |
-      #     git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-      #     git commit -am "chore: bump casks" && git push origin main
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   continue-on-error: true
+      - name: Commit changes
+        working-directory: /opt/homebrew/Library/Taps/moonlight8978/homebrew-tap
+        shell: bash
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          git commit -am "chore: bump casks" && git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
