@@ -1,7 +1,7 @@
 cask "bluestacks-air" do
   arch arm: "mac-arm"
 
-  version "5.21.700.7523,cb51c37107f2436f82aeada1b74dbb18"
+  version "5.21.705.7515,4609e383645949ee9e314c38b2d3d9b4"
   sha256 :no_check
 
   url "https://ak-build.bluestacks.com/public/app-player/mac/nxt_mac2/#{version.csv.first}/#{version.csv.second}/BlueStacksInstaller_#{version.csv.first}.pkg"
