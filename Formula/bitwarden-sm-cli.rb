@@ -1,4 +1,4 @@
-class Bws < Formula
+class BitwardenSmCli < Formula
   url "https://github.com/bitwarden/sdk-sm/releases/download/bws-v1.0.0/bws-aarch64-apple-darwin-1.0.0.zip"
   sha256 "5dd716878e5627220aa254cbe4e41e978f226f72d9117fc195046709db363e20"
 
