@@ -16,6 +16,7 @@ class KubernetesSchemaStore < Formula
 
   def install
     bin.install "kss"
+    generate_completions_from_executable(bin/"kss", "completion", shells: [:zsh])
   end
 
   test do
